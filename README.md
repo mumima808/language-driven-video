@@ -161,6 +161,15 @@ You don't edit rhythm — you write it.
 
 ---
 
+### 5. Standardization of training videos
+Regardless of who produces it, the structure remains consistent.  
+Because timing and sequence are fixed, variations in content quality disappear.  
+
+Revisions become a matter of updating text, not re-editing.  
+Training is no longer dependent on individual skill; it becomes a reproducible score.
+
+---
+
 ## Roadmap
 
 ### Phase 1 · Definition
