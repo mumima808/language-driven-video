@@ -10,59 +10,113 @@ Language-Driven Video is a new paradigm for creating video.
 
 Instead of editing timelines manually, videos are **described as structured language**, executed as code, and compiled into final outputs.
 
-This approach transforms video from a *static artifact* into a *deterministic execution result*.
+---
+
+## Quick Start (1 Command)
+
+### 1. Install
+
+```bash
+npm install
+```
+
+### 2. Generate video (one command)
+
+```bash
+npm run render -- --props=./episode.json
+```
+
+👉 This command:
+
+* loads `episode.json`
+* injects it into React components
+* renders all frames
+* outputs `out/video.mp4`
+
+---
+
+## Minimal Example
+
+### episode.json
+
+```json
+{
+  "message": "Hello Language-Driven Video",
+  "tone": "calm",
+  "speed": 12
+}
+```
+
+---
+
+### React Component
+
+```tsx
+import { useCurrentFrame } from "remotion";
+
+export const Scene = ({ message, speed }) => {
+  const frame = useCurrentFrame();
+
+  return (
+    <div
+      style={{
+        fontSize: 64,
+        textAlign: "center",
+        marginTop: 200,
+        opacity: Math.sin(frame / speed),
+      }}
+    >
+      {message}
+    </div>
+  );
+};
+```
+
+---
+
+## Fixed JSON Schema (v1)
+
+Keep it minimal. No logic inside.
+
+```json
+{
+  "message": "string",
+  "tone": "calm | energetic | serious",
+  "speed": "number (animation speed)"
+}
+```
+
+### Design Rule
+
+* JSON = meaning only
+* React = behavior only
 
 ---
 
 ## Core Concept
 
-A video is not a file.
-A video is the result of executing a program over time.
-
-```
-Language (JSON / Prompt)
-→ React Components (Structure + Logic)
-→ Frame-by-frame Execution (Time)
-→ Video Output (MP4)
+```text
+Language (JSON)
+→ React (Logic)
+→ Time (Frame execution)
+→ Video (MP4)
 ```
 
-* **Language** defines *what* the video means
-* **Code** defines *how* it behaves
-* **Time** defines *when* it changes
+A video is:
 
----
-
-## Why This Matters
-
-Traditional video workflows are:
-
-* Manual
-* Non-deterministic
-* Hard to scale
-* Difficult to version control
-
-Language-Driven Video introduces:
-
-* **Determinism** — Same input, same output
-* **Scalability** — Generate thousands of variations
-* **Versionability** — Git-friendly diffable structure
-* **Programmability** — Logic replaces manual editing
+> A function executed over time.
 
 ---
 
 ## Not Text-to-Video
 
-This is **not** AI video generation.
+| Type                  | Description         |
+| --------------------- | ------------------- |
+| Text-to-Video         | AI generates pixels |
+| Language-Driven Video | Code renders frames |
 
-| Approach              | Description                                   |
-| --------------------- | --------------------------------------------- |
-| Text-to-Video         | Natural language → AI-generated pixels        |
-| Language-Driven Video | Structured language → deterministic rendering |
-
-The key difference:
-
-> AI *imagines*.
-> This system *executes*.
+> AI imagines.
+> This system executes.
 
 ---
 
@@ -70,128 +124,170 @@ The key difference:
 
 ### 1. Language Layer
 
-Structured input (e.g., JSON):
-
-```json
-{
-  "title": "Hello World",
-  "tone": "calm",
-  "speed": 10
-}
-```
-
-This layer defines *meaning*, not behavior.
-
----
+Defines meaning (episode.json)
 
 ### 2. Rendering Layer
 
-React components interpret the language:
-
-```tsx
-export const Scene = ({ title, speed }) => {
-  const frame = useCurrentFrame();
-
-  return (
-    <div style={{ opacity: Math.sin(frame / speed) }}>
-      {title}
-    </div>
-  );
-};
-```
-
-This layer defines *behavior over time*.
-
----
+Defines behavior (React)
 
 ### 3. Execution Layer
 
-The system evaluates:
+Frame-by-frame evaluation
 
+```text
+t = 0 → UI  
+t = 1 → UI  
+t = 2 → UI  
 ```
-t = 0 → UI
-t = 1 → UI
-t = 2 → UI
-...
-```
-
-Each frame is computed deterministically.
-
----
 
 ### 4. Output Layer
 
-Frames are compiled into a video file (e.g., MP4).
-
----
-
-## Key Insight
-
-> Video = Time-based UI execution
-
-This reframes video as:
-
-* A function of time
-* A composable system
-* A programmable medium
-
----
-
-## Design Principles
-
-* **Separation of concerns**
-
-  * Language = meaning
-  * Code = behavior
-
-* **Minimal language**
-
-  * Avoid embedding logic in JSON
-  * Keep structure simple
-
-* **Deterministic rendering**
-
-  * No hidden state
-  * No manual adjustments
+MP4 export
 
 ---
 
 ## What This Enables
 
-* Template-driven video generation
-* Automated content pipelines (e.g., via n8n)
-* Data-driven storytelling
-* Infinite variation from a single system
+* Template-based video generation
+* Batch generation (1 → 10,000 videos)
+* Git-based version control
+* Automation pipelines (n8n etc.)
 
 ---
 
 ## Positioning
 
-Language-Driven Video sits between:
+> Programmable Video Generation
 
-* Traditional video editing tools
-* AI generative video systems
+Between:
 
-It defines a third category:
-
-> **Programmable Video Generation**
+* Video editing tools
+* AI video generation
 
 ---
 
-## Future Direction
+## Future
 
-* Domain-specific language (DSL) for video
-* Integration with AI for language generation
-* Real-time rendering pipelines
-* Distributed video generation systems
+* DSL for video
+* AI-generated JSON
+* Real-time rendering
+* Scalable pipelines
 
 ---
 
-## Final Thought
+## ---- 日本語版 ----
 
-If traditional video editing is craft,
-and AI video is imagination,
+# Language-Driven Video（日本語）
 
-then Language-Driven Video is:
+> 動画は編集するものではない。言語からコンパイルされるものだ。
 
-> **execution.**
+---
+
+## 概要
+
+Language-Driven Videoは、動画制作の新しい考え方です。
+
+動画をタイムラインで編集するのではなく、
+**構造化された言語（JSON）で記述し、コードとして実行し、動画として出力します。**
+
+---
+
+## クイックスタート（1コマンド）
+
+```bash
+npm run render -- --props=./episode.json
+```
+
+この1行で：
+
+* JSONを読み込み
+* Reactに渡し
+* フレームごとに実行し
+* MP4を書き出します
+
+---
+
+## 最小サンプル
+
+### episode.json
+
+```json
+{
+  "message": "こんにちは",
+  "tone": "calm",
+  "speed": 12
+}
+```
+
+---
+
+### コンポーネント
+
+```tsx
+const frame = useCurrentFrame();
+
+<div style={{ opacity: Math.sin(frame / speed) }}>
+  {message}
+</div>
+```
+
+---
+
+## 固定スキーマ（v1）
+
+```json
+{
+  "message": "文字列",
+  "tone": "calm | energetic | serious",
+  "speed": "数値"
+}
+```
+
+---
+
+## 設計思想
+
+* JSON = 意味
+* React = 挙動
+* 動画 = 時間実行の結果
+
+---
+
+## 本質
+
+```text
+JSON → React → 時間 → 動画
+```
+
+👉 動画とは「時間で実行される関数」
+
+---
+
+## 何が変わるのか
+
+従来：
+
+* 手動編集
+* 再現性が低い
+* スケールしない
+
+これから：
+
+* 決定論的
+* 大量生成可能
+* Git管理可能
+
+---
+
+## ポジション
+
+これはAI動画ではありません。
+
+👉 **プログラマブル動画生成**
+
+---
+
+## まとめ
+
+編集から実行へ。
+動画は成果物ではなく、**計算結果**になる。
