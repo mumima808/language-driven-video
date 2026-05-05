@@ -1,230 +1,197 @@
-# Language-Driven Video Generation
-*Human and language define time. Systems perform it.*
+# Language-Driven Video
+
+> Video is no longer edited. It is compiled from language.
 
 ---
 
-## In One Line
+## Overview
 
-**Language defines time. Systems perform it.**
+Language-Driven Video is a new paradigm for creating video.
 
----
+Instead of editing timelines manually, videos are **described as structured language**, executed as code, and compiled into final outputs.
 
-## What This Is
-
-This is not a tool.  
-This is not an AI video generator.  
-This is not an extension of subtitles.
-
-This is a **control layer**.
-
-A system where:
-
-- Humans write language  
-- Language defines time  
-- Systems execute the performance  
-
-At the center of this system is a simple, universal structure:
-
-**SRT = sequence · timecode · text**
+This approach transforms video from a *static artifact* into a *deterministic execution result*.
 
 ---
 
-## The Shift
+## Core Concept
 
-| Before | After |
-|--------|------|
-| Editing video | Designing time |
-| Timeline-first | Language-first |
-| Tool-driven | Structure-driven |
-| Manual composition | Score-based execution |
-
----
-
-## System Dynamics
+A video is not a file.
+A video is the result of executing a program over time.
 
 ```
-[ Human Intent / Language ]
-            ↓
-   Structured Script (SRT)
-            ↓
- ┌───────────────┬───────────────┬───────────────┐
- ↓               ↓               ↓               ↓
-TTS           Visual Gen     AI Actor        Editing
-(voice)        (video)       (performance)   (layout)
-            ↓
-        Composition
-            ↓
-          Output
+Language (JSON / Prompt)
+→ React Components (Structure + Logic)
+→ Frame-by-frame Execution (Time)
+→ Video Output (MP4)
 ```
 
-A single score can produce multiple outputs.  
-The system does not generate randomly.  
-It performs what is written.
-
----
-
-## Minimal Unit
-
-```
-1
-00:00:00,000 --> 00:00:02,000
-Are you ready?
-
-2
-00:00:03,000 --> 00:00:05,000
-Yeah!!
-```
-
-This encodes:
-
-- Tension  
-- Silence  
-- Release  
-
-Nothing more is required.
-
----
-
-## Design Grammar
-
-All time-based expression follows patterns such as:
-
-- Utterance → Silence → Response  
-- Build → Hold → Drop  
-- Hook → Development → Payoff  
-
-These are not techniques.  
-They are structures.
-
-And they can be written.
-
----
-
-## What This Enables
-
-### Reproducible engagement
-Timing is no longer intuition.  
-It becomes structure.
-
----
-
-### Entry without tools
-If you can write, you can design time.
-
----
-
-### Separation of roles
-- Human: meaning and structure  
-- System: execution and variation  
-
----
-
-### Multi-output from one source
-One score. Multiple expressions.
-
----
-
-## What This Is Not
-
-- Not a video editor  
-- Not an AI generation tool  
-- Not a subtitle system  
-
-It does not create.  
-It defines what should happen.
-
----
-
-## First Use Cases
-
-### 1. Short-form video scripting
-Design hooks, pauses, and punchlines as structure.  
-Instead of guessing timing, you write it.
-
----
-
-### 2. YouTube retention optimization
-Drop-off points become visible as timing failures.  
-Silence becomes a controllable variable.
-
----
-
-### 3. AI character performance
-Dialogue and timing define acting.  
-The character performs the score.
-
----
-
-### 4. Music video / mashup structure
-Cuts, drops, and transitions become scriptable.  
-You don't edit rhythm — you write it.
-
----
-
-### 5. Standardization of training videos
-Regardless of who produces it, the structure remains consistent.  
-Because timing and sequence are fixed, variations in content quality disappear.  
-
-Revisions become a matter of updating text, not re-editing.  
-Training is no longer dependent on individual skill; it becomes a reproducible score.
-
----
-
-## Roadmap
-
-### Phase 1 · Definition
-- Establish vocabulary  
-- Share examples of score-based thinking  
-- Clarify boundaries (what this is / is not)
-
----
-
-### Phase 2 · Connection
-- Map SRT to existing tools  
-- Define transformation patterns (SRT → output)  
-- Build reproducible workflows
-
----
-
-### Phase 3 · Reuse
-- Share score templates  
-- Build pattern libraries (hooks, drops, pacing)  
-- Enable non-creators to participate
-
----
-
-### Phase 4 · Emergence
-- Unplanned use cases  
-- New formats  
-- New forms of performance
+* **Language** defines *what* the video means
+* **Code** defines *how* it behaves
+* **Time** defines *when* it changes
 
 ---
 
 ## Why This Matters
 
-For decades, video creation has been constrained by tools.
+Traditional video workflows are:
 
-But the core problem was never tools.
+* Manual
+* Non-deterministic
+* Hard to scale
+* Difficult to version control
 
-It has always been:
+Language-Driven Video introduces:
 
-**time design.**
-
-And time can be written.
-
----
-
-## Relationship to SRT Performance Score
-
-- SRT Performance Score = definition  
-- This repository = application  
-
-One names the structure.  
-The other describes what happens when it is used.
+* **Determinism** — Same input, same output
+* **Scalability** — Generate thousands of variations
+* **Versionability** — Git-friendly diffable structure
+* **Programmability** — Logic replaces manual editing
 
 ---
 
-## Final Statement
+## Not Text-to-Video
 
-**If language can define time,  
-video becomes performable.**
+This is **not** AI video generation.
+
+| Approach              | Description                                   |
+| --------------------- | --------------------------------------------- |
+| Text-to-Video         | Natural language → AI-generated pixels        |
+| Language-Driven Video | Structured language → deterministic rendering |
+
+The key difference:
+
+> AI *imagines*.
+> This system *executes*.
+
+---
+
+## Architecture
+
+### 1. Language Layer
+
+Structured input (e.g., JSON):
+
+```json
+{
+  "title": "Hello World",
+  "tone": "calm",
+  "speed": 10
+}
+```
+
+This layer defines *meaning*, not behavior.
+
+---
+
+### 2. Rendering Layer
+
+React components interpret the language:
+
+```tsx
+export const Scene = ({ title, speed }) => {
+  const frame = useCurrentFrame();
+
+  return (
+    <div style={{ opacity: Math.sin(frame / speed) }}>
+      {title}
+    </div>
+  );
+};
+```
+
+This layer defines *behavior over time*.
+
+---
+
+### 3. Execution Layer
+
+The system evaluates:
+
+```
+t = 0 → UI
+t = 1 → UI
+t = 2 → UI
+...
+```
+
+Each frame is computed deterministically.
+
+---
+
+### 4. Output Layer
+
+Frames are compiled into a video file (e.g., MP4).
+
+---
+
+## Key Insight
+
+> Video = Time-based UI execution
+
+This reframes video as:
+
+* A function of time
+* A composable system
+* A programmable medium
+
+---
+
+## Design Principles
+
+* **Separation of concerns**
+
+  * Language = meaning
+  * Code = behavior
+
+* **Minimal language**
+
+  * Avoid embedding logic in JSON
+  * Keep structure simple
+
+* **Deterministic rendering**
+
+  * No hidden state
+  * No manual adjustments
+
+---
+
+## What This Enables
+
+* Template-driven video generation
+* Automated content pipelines (e.g., via n8n)
+* Data-driven storytelling
+* Infinite variation from a single system
+
+---
+
+## Positioning
+
+Language-Driven Video sits between:
+
+* Traditional video editing tools
+* AI generative video systems
+
+It defines a third category:
+
+> **Programmable Video Generation**
+
+---
+
+## Future Direction
+
+* Domain-specific language (DSL) for video
+* Integration with AI for language generation
+* Real-time rendering pipelines
+* Distributed video generation systems
+
+---
+
+## Final Thought
+
+If traditional video editing is craft,
+and AI video is imagination,
+
+then Language-Driven Video is:
+
+> **execution.**
